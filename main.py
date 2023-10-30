@@ -55,7 +55,9 @@ def search_movie_entry(update, context):
                 # Send the inline keyboard to the Telegram bot
                 chat_id = update.effective_chat.id
                 bot = context.bot
-                bot.send_message(chat_id=chat_id, text="Please select a movie:", reply_markup=reply_markup)
+                sent_message = bot.send_message(chat_id=chat_id, text="Please select a movie:", reply_markup=reply_markup)
+
+                context.job_queue.run_once(delete_message, 60, context=sent_message)
             else:
                 update.message.reply_text('No movie results found.')
         else:
@@ -88,7 +90,9 @@ def search_collection_entry(update, context):
                 # Send the inline keyboard to the Telegram bot
                 chat_id = update.effective_chat.id
                 bot = context.bot
-                bot.send_message(chat_id=chat_id, text="Please select a collection:", reply_markup=reply_markup)
+                sent_message = bot.send_message(chat_id=chat_id, text="Please select a collection:", reply_markup=reply_markup)
+
+                context.job_queue.run_once(delete_message, 60, context=sent_message)
             else:
                 update.message.reply_text('No collection results found.')
         else:
@@ -121,7 +125,8 @@ def search_tv_entry(update, context):
                 # Send the inline keyboard to the Telegram bot
                 chat_id = update.effective_chat.id
                 bot = context.bot
-                bot.send_message(chat_id=chat_id, text="Please select a TV show:", reply_markup=reply_markup)
+                sent_message = bot.send_message(chat_id=chat_id, text="Please select a TV show:", reply_markup=reply_markup)
+                context.job_queue.run_once(delete_message, 60, context=sent_message)
             else:
                 update.message.reply_text('No TV show results found.')
         else:
