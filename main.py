@@ -7,6 +7,7 @@ from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 import os
 from dotenv import load_dotenv
 import signal
+import time
 
 # Load environment variables from .env file
 load_dotenv()
@@ -18,6 +19,9 @@ tmdb_api_key = os.environ.get("TMDB_API_KEY")
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
+def delete_message(context):
+    message = context.job.context
+    message.delete()
 
 # Define the function to handle the /start command
 def start(update, context):
@@ -203,7 +207,9 @@ def button_callback(update, context):
                         photo_file.write(response.content)
 
                     query.answer()
-                    query.bot.send_photo(chat_id=query.message.chat_id, photo=open(photo_path, 'rb'), caption=message, parse_mode=telegram.ParseMode.HTML)
+                    sent_message = query.bot.send_photo(chat_id=query.message.chat_id, photo=open(photo_path, 'rb'), caption=message, parse_mode=telegram.ParseMode.HTML)
+
+                    context.job_queue.run_once(delete_message, 60, context=sent_message)
 
                     # Delete the temporary image file
                     os.remove(photo_path)
