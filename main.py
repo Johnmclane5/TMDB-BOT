@@ -7,7 +7,6 @@ from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 import os
 from dotenv import load_dotenv
 import signal
-from keep_alive import keep_alive
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,7 +18,6 @@ tmdb_api_key = os.environ.get("TMDB_API_KEY")
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-keep_alive()
 
 # Define the function to handle the /start command
 def start(update, context):
