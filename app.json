@@ -1,0 +1,19 @@
+{
+  "name": "hrrips",
+  "description": "Description of your Telegram bot",
+  "repository": "https://github.com/Johnmclane5/TMDB-BOT",
+  "keywords": ["telegram", "bot"],
+  "env": {
+    "BOT_TOKEN": "YOUR_BOT_TOKEN",
+    "TMDB_API_KEY": "TMDB_API_KEY"
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "scripts": {
+    "start": "python main.py"
+  },
+  "image": "heroku/python"
+}
