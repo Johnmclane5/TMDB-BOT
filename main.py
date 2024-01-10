@@ -162,7 +162,7 @@ def button_callback(update, context):
                 genres = [genre['name'] for genre in entry.get('genres', [])]
                 spoken_languages = [lang['name'] for lang in entry.get('spoken_languages', [])]
                 overview = entry["overview"]
-                backdrop_path = entry["backdrop_path"]
+                backdrop_path = entry["poster_path"]
                 runtime = entry.get("runtime", "N/A")
                 release_date = entry.get("release_date", "N/A")
 
